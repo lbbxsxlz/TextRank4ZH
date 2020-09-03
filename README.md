@@ -2,7 +2,6 @@
 
 TextRank算法可以用来从文本中提取关键词和摘要（重要的句子）。TextRank4ZH是针对中文文本的TextRank算法的python算法实现。
 
-
 ## 安装
 
 方式1：
@@ -17,12 +16,12 @@ $ sudo python setup.py install
 
 方式3：
 ```
-$ pip install ChineseTone --user
+$ pip install textrank4zh --user
 ```
 
 方式4：
 ```
-$ sudo pip install ChineseTone
+$ sudo pip install textrank4zh
 ```
 
 Python 3下需要将上面的python改成python3，pip改成pip3。
@@ -47,6 +46,8 @@ networkx >= 1.9.1
 TextRank的详细原理请参考：
 
 > Mihalcea R, Tarau P. TextRank: Bringing order into texts[C]. Association for Computational Linguistics, 2004.
+
+关于TextRank4ZH的原理和使用介绍：[使用TextRank算法为文本生成关键字和摘要](https://www.letiantian.me/2014-12-01-text-rank/)
 
 ### 关键词提取
 将原文本拆分为句子，在每个句子中过滤掉停用词（可选），并只保留指定词性的单词（可选）。由此可以得到句子的集合和单词的集合。
@@ -110,7 +111,7 @@ tr4s.analyze(text=text, lower=True, source = 'all_filters')
 print()
 print( '摘要：' )
 for item in tr4s.get_key_sentences(num=3):
-    print(item.weight, item.sentence)
+    print(item.index, item.weight, item.sentence)  # index是语句在文本中位置，weight是权重
 ```
 
 运行结果如下：
@@ -141,13 +142,14 @@ for item in tr4s.get_key_sentences(num=3):
 微博
 
 摘要：
-0.07097195571711616 中新网北京12月1日电(记者 张曦) 30日晚，高圆圆和赵又廷在京举行答谢宴，诸多明星现身捧场，其中包括张杰(微博)、谢娜(微博)夫妇、何炅(微博)、蔡康永(微博)、徐克、张凯丽、黄轩(微博)等
-0.05410372364148859 高圆圆身穿粉色外套，看到大批记者在场露出娇羞神色，赵又廷则戴着鸭舌帽，十分淡定，两人快步走进电梯，未接受媒体采访
-0.04904283129838876 记者了解到，出席高圆圆、赵又廷答谢宴的宾客近百人，其中不少都是女方的高中同学
+摘要：
+0 0.0709719557171 中新网北京12月1日电(记者 张曦) 30日晚，高圆圆和赵又廷在京举行答谢宴，诸多明星现身捧场，其中包括张杰(微博)、谢娜(微博)夫妇、何炅(微博)、蔡康永(微博)、徐克、张凯丽、黄轩(微博)等
+6 0.0541037236415 高圆圆身穿粉色外套，看到大批记者在场露出娇羞神色，赵又廷则戴着鸭舌帽，十分淡定，两人快步走进电梯，未接受媒体采访
+27 0.0490428312984 记者了解到，出席高圆圆、赵又廷答谢宴的宾客近百人，其中不少都是女方的高中同学
 
 ```
 
-##使用说明
+## 使用说明
 
 类TextRank4Keyword、TextRank4Sentence在处理一段文本时会将文本拆分成4种格式：
 
